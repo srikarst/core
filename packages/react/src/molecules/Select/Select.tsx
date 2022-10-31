@@ -1,10 +1,11 @@
 import React, {
-  createRef,
-  KeyboardEventHandler,
-  useEffect,
-  useRef,
   useState,
+  useRef,
+  useEffect,
+  KeyboardEventHandler,
+  createRef,
 } from "react";
+
 import Text from "../../atoms/Text";
 
 export const KEY_CODES = {
@@ -73,17 +74,20 @@ const Select: React.FunctionComponent<SelectProps> = ({
   const [selectedIndex, setSelectedIndex] = useState<null | number>(null);
   const [highlightedIndex, setHighlightedIndex] = useState<null | number>(null);
   const labelRef = useRef<HTMLButtonElement>(null);
-  const [overlayTop, setOverlayTop] = useState<number>(0);
   const [optionRefs, setOptionRefs] = useState<
     React.RefObject<HTMLLIElement>[]
   >([]);
+  const [overlayTop, setOverlayTop] = useState<number>(0);
 
   const onOptionSelected = (option: SelectOption, optionIndex: number) => {
-    if (handler) handler(option, optionIndex);
+    if (handler) {
+      handler(option, optionIndex);
+    }
 
     setSelectedIndex(optionIndex);
     setIsOpen(false);
   };
+
   const onLabelClick = () => {
     setIsOpen(!isOpen);
   };
@@ -155,15 +159,16 @@ const Select: React.FunctionComponent<SelectProps> = ({
     <div className="dse-select">
       <button
         data-testid="DseSelectButton"
-        aria-controls="dse-select-list"
         onKeyDown={onButtonKeyDown}
+        aria-controls="dse-select-list"
         aria-haspopup={true}
         aria-expanded={isOpen ? true : undefined}
         ref={labelRef}
         className="dse-select__label"
-        onClick={onLabelClick}
+        onClick={() => onLabelClick()}
       >
         <Text>{selectedOption === null ? label : selectedOption.label}</Text>
+
         <svg
           className={`dse-select__caret ${
             isOpen ? "dse-select__caret--open" : "dse-select__caret--closed"
@@ -180,15 +185,21 @@ const Select: React.FunctionComponent<SelectProps> = ({
           <path d="M19 9l-7 7-7-7" />
         </svg>
       </button>
-      {isOpen && (
+
+      {
         <ul
           role="menu"
+          aria-hidden={isOpen ? undefined : false}
+          id="dse-select-list"
           style={{ top: overlayTop }}
-          className="dse-select__overlay"
+          className={`dse-select__overlay ${
+            isOpen ? "dse-select__overlay--open" : ""
+          }`}
         >
           {options.map((option, optionIndex) => {
             const isSelected = selectedIndex === optionIndex;
             const isHighlighted = highlightedIndex === optionIndex;
+
             const ref = optionRefs[optionIndex];
 
             const renderOptionProps = {
@@ -201,26 +212,37 @@ const Select: React.FunctionComponent<SelectProps> = ({
                   role: "menuitemradio",
                   "aria-label": option.label,
                   "aria-checked": isSelected ? true : undefined,
-                  tabIndex: isHighlighted ? -1 : 0,
                   onKeyDown: onOptionKeyDown,
+                  tabIndex: isHighlighted ? -1 : 0,
                   onMouseEnter: () => highlightOption(optionIndex),
                   onMouseLeave: () => highlightOption(null),
                   className: `dse-select__option
-                      ${isSelected ? "dse-select__option--selected" : ""}
-                      ${isHighlighted ? "dse-select__option--highlighted" : ""}
-                  `,
+                                ${
+                                  isSelected
+                                    ? "dse-select__option--selected"
+                                    : ""
+                                }
+                                ${
+                                  isHighlighted
+                                    ? "dse-select__option--highlighted"
+                                    : ""
+                                }
+                            `,
                   key: option.value,
                   onClick: () => onOptionSelected(option, optionIndex),
                   ...overrideProps,
                 };
               },
             };
+
             if (renderOption) {
               return renderOption(renderOptionProps);
             }
+
             return (
               <li {...renderOptionProps.getOptionRecommendedProps()}>
                 <Text>{option.label}</Text>
+
                 {isSelected ? (
                   <svg
                     width="1rem"
@@ -239,7 +261,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
             );
           })}
         </ul>
-      )}
+      }
     </div>
   );
 };

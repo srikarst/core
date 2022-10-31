@@ -29059,10 +29059,12 @@ const Select = ({
   const [selectedIndex, setSelectedIndex] = (0, _react.useState)(null);
   const [highlightedIndex, setHighlightedIndex] = (0, _react.useState)(null);
   const labelRef = (0, _react.useRef)(null);
-  const [overlayTop, setOverlayTop] = (0, _react.useState)(0);
   const [optionRefs, setOptionRefs] = (0, _react.useState)([]);
+  const [overlayTop, setOverlayTop] = (0, _react.useState)(0);
   const onOptionSelected = (option, optionIndex) => {
-    if (handler) handler(option, optionIndex);
+    if (handler) {
+      handler(option, optionIndex);
+    }
     setSelectedIndex(optionIndex);
     setIsOpen(false);
   };
@@ -29116,13 +29118,14 @@ const Select = ({
   return _react.default.createElement("div", {
     className: "dse-select"
   }, _react.default.createElement("button", {
-    "aria-controls": "dse-select-list",
+    "data-testid": "DseSelectButton",
     onKeyDown: onButtonKeyDown,
+    "aria-controls": "dse-select-list",
     "aria-haspopup": true,
     "aria-expanded": isOpen ? true : undefined,
     ref: labelRef,
     className: "dse-select__label",
-    onClick: onLabelClick
+    onClick: () => onLabelClick()
   }, _react.default.createElement(_Text.default, null, selectedOption === null ? label : selectedOption.label), _react.default.createElement("svg", {
     className: `dse-select__caret ${isOpen ? "dse-select__caret--open" : "dse-select__caret--closed"}`,
     width: "1rem",
@@ -29135,12 +29138,14 @@ const Select = ({
     stroke: "currentColor"
   }, _react.default.createElement("path", {
     d: "M19 9l-7 7-7-7"
-  }))), isOpen && _react.default.createElement("ul", {
+  }))), _react.default.createElement("ul", {
     role: "menu",
+    "aria-hidden": isOpen ? undefined : false,
+    id: "dse-select-list",
     style: {
       top: overlayTop
     },
-    className: "dse-select__overlay"
+    className: `dse-select__overlay ${isOpen ? "dse-select__overlay--open" : ""}`
   }, options.map((option, optionIndex) => {
     const isSelected = selectedIndex === optionIndex;
     const isHighlighted = highlightedIndex === optionIndex;
@@ -29155,14 +29160,14 @@ const Select = ({
           role: "menuitemradio",
           "aria-label": option.label,
           "aria-checked": isSelected ? true : undefined,
-          tabIndex: isHighlighted ? -1 : 0,
           onKeyDown: onOptionKeyDown,
+          tabIndex: isHighlighted ? -1 : 0,
           onMouseEnter: () => highlightOption(optionIndex),
           onMouseLeave: () => highlightOption(null),
           className: `dse-select__option
-                      ${isSelected ? "dse-select__option--selected" : ""}
-                      ${isHighlighted ? "dse-select__option--highlighted" : ""}
-                  `,
+                                ${isSelected ? "dse-select__option--selected" : ""}
+                                ${isHighlighted ? "dse-select__option--highlighted" : ""}
+                            `,
           key: option.value,
           onClick: () => onOptionSelected(option, optionIndex),
           ...overrideProps
@@ -29352,7 +29357,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63971" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54878" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
