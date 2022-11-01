@@ -4,8 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
     "commitizen": "^4.2.5",
     "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.0",
     "lerna": "^3.22.1"
   },
   "private": true,
@@ -25,11 +28,17 @@
     "publish": "yarn test && yarn build && yarn lerna publish",
     "commit": "yarn git-cz",
     "test:chromatic": "yarn lerna run test:chromatic",
-    "build:storybook": "yarn build && yarn lerna run build-storybook"
+    "build:storybook": "yarn build && yarn lerna run build-storybook",
+    "prepare": "husky install"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
 }
