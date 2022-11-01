@@ -2,7 +2,7 @@ import React from "react";
 import Color from "./Color";
 import { text, select } from "@storybook/addon-knobs";
 
-import { Spacing } from "@ds.e/foundation";
+import { Spacing } from "@srikar-ds.e/foundation";
 
 // css
 import "@ds.e/scss/lib/Utilities.css";
