@@ -1,5 +1,5 @@
 {
-  "name": "@ds.e/react",
+  "name": "@srikar-ds.e/react",
   "version": "1.0.1",
   "main": "lib/index.js",
   "license": "MIT",
@@ -36,7 +36,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "readme": "ERROR: No README data found!",
-  "_id": "@ds.e/react@1.0.0"
+  }
 }
