@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Margin, Select } from "@ds.e/react";
+import { Margin, Select } from "@srikar-ds.e/react";
 
-import "@ds.e/scss/lib/Utilities.css";
-import "@ds.e/scss/lib/Margin.css";
-import "@ds.e/scss/lib/Select.css";
-import "@ds.e/scss/lib/global.css";
+import "@srikar-ds.e/scss/lib/Utilities.css";
+import "@srikar-ds.e/scss/lib/Margin.css";
+import "@srikar-ds.e/scss/lib/Select.css";
+import "@srikar-ds.e/scss/lib/global.css";
 
 const options = [
   {

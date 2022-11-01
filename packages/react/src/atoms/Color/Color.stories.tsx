@@ -5,7 +5,7 @@ import { text, select } from "@storybook/addon-knobs";
 import { Spacing } from "@srikar-ds.e/foundation";
 
 // css
-import "@ds.e/scss/lib/Utilities.css";
+import "@srikar-ds.e/scss/lib/Utilities.css";
 
 export default {
   title: "Atoms|Color",
